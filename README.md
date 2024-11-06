@@ -25,5 +25,5 @@ All software and models will be run locally with open-source to maintain accessi
 5. Langchain (Retrieval Augmented Generation)
 
 ```bash
-git clone https://github.com/username/my-project.git
-cd my-project
+git clone https://github.com/kunit17/ChatLite.git
+cd ChatLite
