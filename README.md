@@ -4,7 +4,7 @@ This is my first AI project. The goal of this project is to be able to use a Lar
 
 All software and models will be run locally with open-source to maintain accessibility, control, and customization.
 
-![Llama RAG](./images/llama_tldr.jpg)
+![Llama RAG](./Images/llama_tldr.jpg)
 
 ## Steps
 1. Learn how to be able to interact with a transformer model. I will be using the Llama 3.2 3B Instruct checkpoint and wrapping it using Hugging Face Transformers in order to submit user-generated queries and receive responses from the model.
