@@ -8,8 +8,8 @@ All software and models will be run locally with open-source to maintain accessi
 
 ## Steps
 1. Learn how to be able to interact with a transformer model. I will be using the Llama 3.2 3B Instruct checkpoint and wrapping it using Hugging Face Transformers in order to submit user-generated queries and receive responses from the model.
-2. Learn how to tokenize and making embeddings of user-provided data in a usable form so that the LLM can efficiently parse the data. 
-3. Create a user-friendly interface that will take queries about procedures and return steps for completion of the requested task.
+2. **Work in progress:** Learn how to tokenize and making embeddings of user-provided data in a usable form so that the LLM can efficiently parse the data. 
+3. **Work in progress:** Create a user-friendly interface that will take queries about procedures and return steps for completion of the requested task.
 
 ## Learning Outcomes
 1. Develop Advanced Python Skills: Strengthen your Python proficiency for machine learning, mastering efficient code writing and debugging in practical ML applications.
