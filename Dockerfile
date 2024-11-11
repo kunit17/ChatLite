@@ -22,14 +22,6 @@ ARG HF_TOKEN                      # This argument will store the Hugging Face to
 # Set up the working directory
 WORKDIR /app                        # Set the working directory to `/app` for subsequent instructions
 
-# Clone the repository using the provided username and token
-#RUN git lfs install && \           # Install Git LFS (this line is commented out in your Dockerfile)
-#    git clone https://${HF_USERNAME}:${HF_TOKEN}@huggingface.co/meta-llama/Llama-3.2-3B-Instruct /app # Clone the Llama repository into the /app directory (this line is also commented out)
-
-# Redundant argument definitions
-ARG HF_USERNAME
-ARG HF_TOKEN
-
 # Copy the contents of the local directory to the /app directory in the container
 COPY . /app                        # Copy all files from the local directory into `/app` inside the container
 
@@ -48,9 +40,6 @@ WORKDIR /home/jovyan                # Change the working directory to `/home/jov
 # Copy the contents of the local directory to the container's /home/jovyan
 COPY . /home/jovyan                  # Copy all files from the local directory to `/home/jovyan` in the container
 COPY --from=llama /app /home/jovyan   # Copy the `/app` directory from the previous stage (`llama`) to `/home/jovyan` in this stage
-
-# Set the default command to list files in the cloned repository
-#CMD ["ls", "-alh", "/app"]            # List the files in `/app` when the container starts (this line is commented out)
 
 # Install necessary Python libraries
 RUN pip install --no-cache-dir transformers  # Install the Hugging Face `transformers` library without caching to reduce image size
