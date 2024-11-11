@@ -24,6 +24,10 @@ All software and models will be run locally with open-source to maintain accessi
 4. Hugging Face quantized Meta Llama 3.2B Instruct (checkpoint)
 5. Langchain (Retrieval Augmented Generation)
 
+pip install markdown
+pip install tkhtmlview
+
+
 ```bash
 git clone https://github.com/kunit17/ChatLite.git
 cd ChatLite
