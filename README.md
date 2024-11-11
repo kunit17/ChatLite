@@ -26,4 +26,19 @@ All software and models will be run locally with open-source to maintain accessi
 
 ```bash
 git clone https://github.com/kunit17/ChatLite.git
-cd ChatLite
+cd ChatLite 
+```
+
+## Docker Setup
+
+### #1 Build
+Replace `{USERNAME}` with your huggingface user name, and `{USERNAME}` with a huggingface access token.
+````
+docker build --build-arg HF_USERNAME={USERNAME} --build-arg HF_TOKEN={USERNAME} -t chat_lite .
+````
+
+### #2 Run
+````
+docker run -d -p 8888:8888 chat_lite
+````
+
