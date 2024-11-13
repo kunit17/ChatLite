@@ -35,7 +35,7 @@ class ChatGenerator:
             num_return_sequences=1,
             eos_token_id=self.text_generator.tokenizer.eos_token_id,
             truncation=True,
-            max_length=1000
+            max_length=10000
         )[0]['generated_text']  
         
         response_without_chathistory = response.replace(prompt, "").strip()

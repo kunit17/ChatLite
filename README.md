@@ -26,7 +26,8 @@ All software and models will be run locally with open-source to maintain accessi
 
 pip install markdown
 pip install tkhtmlview
-
+pip install sentence-transformers
+pip3 install -U xformers --index-url https://download.pytorch.org/whl/cu124 
 
 ```bash
 git clone https://github.com/kunit17/ChatLite.git
