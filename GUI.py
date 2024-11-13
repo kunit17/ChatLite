@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkhtmlview import HTMLLabel
+from tkinter import messagebox
+import asyncio
+from RAG import get_top_documents_sync  # Assuming you've created this function as per the previous steps
 
 class QuestionGUI:
     def __init__(self, master, model):
@@ -21,8 +24,35 @@ class QuestionGUI:
         self.response_label = HTMLLabel(self.master, html="", width=100, height=20)
         self.response_label.pack(fill=tk.BOTH, expand=True)
 
+        # Loading indicator (optional)
+        self.loading_label = tk.Label(self.master, text="", width=20)
+        self.loading_label.pack()
+
     def submit(self, event=None):
         question = self.entry.get()
-        response = self.model.generate_response(question)  # Generate response using model
-        self.response_label.set_html(response)  # Use set_html to display the HTML response
-        self.entry.delete(0, tk.END)  # Clear entry field
+
+        # Clear the previous response and show a loading message
+        self.response_label.set_html("")
+        self.loading_label.config(text="Loading...")
+
+        try:
+            # Get top 4 similar documents asynchronously and sync it for GUI use
+            top_documents = get_top_documents_sync(question)
+
+            if not top_documents:
+                raise ValueError("No similar documents found.")
+
+            # Pass the top documents to the model and get the response
+            response = self.model.generate_response(question, top_documents)
+
+            # Display the generated response
+            self.response_label.set_html(response)
+
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred: {e}")
+            self.response_label.set_html("Sorry, an error occurred while processing your request.")
+
+        finally:
+            # Clear loading indicator and entry field
+            self.loading_label.config(text="")
+            self.entry.delete(0, tk.END)  # Clear entry field

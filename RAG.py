@@ -19,8 +19,8 @@ async def process_pdfs():
             chunked_docs.append(page)
     return chunked_docs
 
-# Async function to run everything
-async def main():
+# Function to get top 4 similar documents
+async def get_top_documents(query: str):
     # Load PDF documents asynchronously
     chunked_docs = await process_pdfs()
 
@@ -37,33 +37,27 @@ async def main():
     doc_texts = [doc.page_content for doc in chunked_docs]
     doc_embeddings = model.encode(doc_texts, convert_to_tensor=True)
 
-    # Prompt user for a query
-    user_query = input("Enter a query to find similar documents: ")
-
     # Encode the input query
-    query_embedding = model.encode([user_query], convert_to_tensor=True)
+    query_embedding = model.encode([query], convert_to_tensor=True)
 
     # Calculate similarity between the query and each document
     similarities = model.similarity(query_embedding, doc_embeddings)
-
-    # Print the similarity results
-    print("\nSimilarity scores between your query and documents:")
-    print(similarities)
 
     # Check if we have valid similarity results
     if similarities.shape[1] > 0:  # Ensure there are scores in similarities
         # Get the top 4 most similar documents
         num_results = min(4, similarities.shape[1])  # Limit results to 4 or fewer if there aren't enough
         top_indices = similarities[0].argsort(descending=True)[:num_results]  # Sort in descending order
+        
+        # Return the top similar documents
+        top_documents = []
+        for idx in top_indices:
+            top_documents.append(doc_texts[idx][:500])  # Take the first 500 characters of each document
 
-        # Print the top similar documents
-        print("\nTop most similar documents to your query:")
-        for i, idx in enumerate(top_indices):
-            print(f"\nRank {i + 1}:")
-            print(f"Similarity: {similarities[0][idx]:.4f}")
-            print(f"Document: {doc_texts[idx][:500]}...")  # Display the first 500 characters of the document
+        return top_documents
     else:
-        print("No results found.")
+        return []
 
-# Run the async function
-asyncio.run(main())
+# Run the async function to get top documents (this part can be handled in your GUI call)
+def get_top_documents_sync(query: str):
+    return asyncio.run(get_top_documents(query))

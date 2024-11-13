@@ -24,9 +24,9 @@ class ChatGenerator:
         # Append the question and response to the chat history
         self.history += get_q + response
 
-    def generate_response(self, get_q: str):
+    def generate_response(self, get_q: str, top_documents: list):
         # Generate sequences
-        prompt = self.history + get_q
+        prompt = f"{self.history}{get_q}\n\n{'\n\n'.join(top_documents)}"
         response = self.text_generator(
             prompt,
             do_sample=True,
@@ -35,7 +35,7 @@ class ChatGenerator:
             num_return_sequences=1,
             eos_token_id=self.text_generator.tokenizer.eos_token_id,
             truncation=True,
-            max_length=10000
+            max_length=100000
         )[0]['generated_text']  
         
         response_without_chathistory = response.replace(prompt, "").strip()
