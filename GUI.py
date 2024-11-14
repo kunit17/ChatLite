@@ -37,13 +37,13 @@ class QuestionGUI:
 
         try:
             # Get top 4 similar documents asynchronously and sync it for GUI use
-            top_documents = get_top_documents_sync(question)
+            top_docs = get_top_documents_sync(question)
 
-            if not top_documents:
+            if not top_docs:
                 raise ValueError("No similar documents found.")
 
             # Pass the top documents to the model and get the response
-            response = self.model.generate_response(question, top_documents)
+            response = self.model.generate_response(question, top_docs)
 
             # Display the generated response
             self.response_label.set_html(response)

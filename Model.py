@@ -26,7 +26,7 @@ class ChatGenerator:
 
     def generate_response(self, get_q: str, top_documents: list):
         # Generate sequences
-        prompt = f"{self.history}{get_q}\n\n{'\n\n'.join(top_documents)}"
+        prompt = f"I will ask the following question: {self.history}\n{get_q}. Answer that question incorporating the following information as the core of the response: \n\n{'\n\n'.join(top_documents)}. \n\n Answer in 3 sentences or less."
         response = self.text_generator(
             prompt,
             do_sample=True,
